@@ -34,8 +34,6 @@ async def get_user(gender: Gender): # Gender 是上面定义的性别枚举类
     return {'student': f'This is a {gender.value} student'}
 
 
-
-
 if __name__=='__main__':
     uvicorn.run("main:app", reload=True)
 

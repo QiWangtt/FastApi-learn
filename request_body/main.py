@@ -3,7 +3,7 @@
 # @Author: Qi Wang
 # @File: main
 # @Project: FastApi learn
-# @Quelle: https://www.youtube.com/watch?v=n6Xa6cokCKc&list=PLvQDgAXJ4ADP4G8Iuc02B11bvFokZMChK&index=2
+# @Quelle: https://www.youtube.com/watch?v=n6Xa6cokCKc&list=PLvQDgAXJ4ADP4G8Iuc02B11bvFokZMChK&index=4
 
 import uvicorn
 from fastapi import FastAPI
@@ -23,6 +23,11 @@ class UserModel(BaseModel):
     description: Optional[str] = "default"
     gender: Gender
 
+'''
+1. 如果在路径参数中定义了，那么函数中的同名参数自动匹配为路径参数;
+2. 如果在路径参数中没有定义，那么函数体中的int和str之类的基本类型为查询参数;
+3. 如果是pydantic的模型类型，则为请求体，会把请求体中的数据转化为定义的模型中的数据
+'''
 
 @app.post('/users')
 async def create_user(user_model: UserModel):
