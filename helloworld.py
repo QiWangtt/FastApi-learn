@@ -11,10 +11,10 @@ app = FastAPI()
 
 @app.get("/")
 async def hello_world2():
-    return {'message': 'Hello Wohgrld2'}
+    return {'message': 'Hello Wohgftgrld2'}
 
 @app.get("/helloworld")
-async def hello_world():
+async def helloworld():
     return {'message': 'Hellocvgb c World'}
 
 
@@ -25,4 +25,4 @@ async def hello_world():
 
 # 但是也可以在程序内部自动运行，例如:
 if __name__ == '__main__':
-    uvicorn.run("hello_world:app", reload=True)
+    uvicorn.run("helloworld:app", reload=True)
