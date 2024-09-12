@@ -32,10 +32,10 @@ class UserOut(BaseModel):
 
 # response_model告诉fastapi，函数输出的结果使用这个模型的内容，相当于执行过滤，把不要的信息过滤掉
 # response_model_include相当于再次过滤，只输出UserOut模型中的部分内容
-# @app.get('/Users/{Username}', response_model=UserOut, response_model_include={"id"})
+# @app.get('/Users/{Username}', 9_response_model=UserOut, response_model_include={"id"})
 
 # response_model_exclude相当于再次过滤，要求某项内容不要输出，剩余内容输出
-# @app.get('/Users/{Username}', response_model=UserOut, response_model_exclude={"id"})
+# @app.get('/Users/{Username}', 9_response_model=UserOut, response_model_exclude={"id"})
 
 # response_model_exclude_unset: 当User里面某个值没有设定就不输出该值，
 @app.get('/Users/{Username}', response_model=UserOut, response_model_exclude_unset=True)
@@ -46,7 +46,7 @@ async def get_User(Username: str):
 
 
 # 下面这三行代码用于获取Users全部数据，但是没有运行成功
-# @app.get('/Users', response_model= List[UserOut])
+# @app.get('/Users', 9_response_model= List[UserOut])
 # async def get_users():
 #     return Users.values()
 

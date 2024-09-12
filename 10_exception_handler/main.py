@@ -68,6 +68,7 @@ async def create_user(user: UserIn):
 
     return user_dict
 
+
 # 如果找到了，状态码就是200，这是默认的，不写也可以
 @app.get('/users/{username}', status_code=200, response_model=UserOut)
 async def get_user(username: str = Path(..., min_length=1)): # username是一个路径参数， 这里要求最小长度1个字符， 这里对应Users里的a,b,c,d,e
