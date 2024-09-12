@@ -4,6 +4,7 @@
 # @File: main
 # @Project: FastApi learn
 # @Quelle: https://www.youtube.com/watch?v=n6Xa6cokCKc&list=PLvQDgAXJ4ADP4G8Iuc02B11bvFokZMChK&index=10
+from email import message_from_binary_file
 
 import uvicorn
 from fastapi import FastAPI, Path, Query, Body, Cookie, Header, Request, Response, HTTPException, status
@@ -42,13 +43,26 @@ class UserOut(UserBase):
     ...
 
 
+# 对于报错信息可以单独定义一个类
+class ErrorMessage(BaseModel):
+    error_code: int
+    message: str
+
+
 class UserNotFoundException(Exception):
     def __init__(self, username: str):
         self.username = username
 
-
-@app.post('/users', status_code=201, response_model=UserOut)
+# responses可以将异常内容的example values加入到api中，让用户看得到
+@app.post('/users', status_code=201, response_model=UserOut, responses={
+    400: {'model': ErrorMessage},
+    401: {'model': ErrorMessage}
+})
 async def create_user(user: UserIn):
+    if Users.get(user.username, None): # 这个if的用意在于，如果找到相同用户，则不能重复创建该用户，因此报错，错误码是400
+        error_message = ErrorMessage(error_code=400, message=f'{user.username} already exists')
+        return JSONResponse(status_code=400, content=error_message.model_dump())
+
     user_dict = user.model_dump()
     user_dict.update({"id": 10})
 
